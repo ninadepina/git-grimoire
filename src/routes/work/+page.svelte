@@ -75,7 +75,7 @@
 			<ul>
 				{#each repositories as repository}
 					<li>
-						<h2><a href="/">{repository.name}</a></h2>
+						<h2><a href="/repo/{repository.name}">{repository.name}</a></h2>
 						{#if repository.description}
 							<p>{repository.description}</p>
 						{/if}
