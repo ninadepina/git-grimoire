@@ -7,8 +7,8 @@ export async function getRepositories() {
 	try {
 		data = await (await fetch(url)).json();
 		const repositories = data.map((repository) => {
-			const lastUpdated = formatDistanceToNow(new Date(repository.updated_at), { addSuffix: true });
-			const lastUpdatedTime = repository.updated_at;
+			const lastUpdated = formatDistanceToNow(new Date(repository.pushed_at), { addSuffix: true });
+			const lastUpdatedTime = repository.pushed_at;
 
 			return {
 				name: repository.name,
