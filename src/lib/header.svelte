@@ -1,160 +1,81 @@
+<!-- prettier-ignore -->
 <header>
-	<nav>
-		<a href="/">nina vens</a>
-		<a href="/work">work</a>
-		<div class="container_social_dropdown">
-			<a href="">socials</a>
-			<div class="social_dropdown">
-				<ul>
-					<li><a href="https://www.linkedin.com/in/ninavens" target="_blank">LinkedIn</a></li>
-					<li><a href="https://www.instagram.com/ninavensstudio/" target="_blank">Instagram</a></li>
-					<li><a href="https://github.com/ninadepina" target="_blank">GitHub</a></li>
-				</ul>
-			</div>
-		</div>
-		<a href="">contact</a>
-	</nav>
+	<section>
+		<svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true">
+		<path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
+		</svg>
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/work">Work</a></li>
+				<li><a href="/">Socials</a></li>
+				<li><a href="/">Contact</a></li>
+			</ul>
+		</nav>
+	</section>
+	<section>
+		<svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true">
+			<path d="M8 16a2 2 0 0 0 1.985-1.75c.017-.137-.097-.25-.235-.25h-3.5c-.138 0-.252.113-.235.25A2 2 0 0 0 8 16ZM3 5a5 5 0 0 1 10 0v2.947c0 .05.015.098.042.139l1.703 2.555A1.519 1.519 0 0 1 13.482 13H2.518a1.516 1.516 0 0 1-1.263-2.36l1.703-2.554A.255.255 0 0 0 3 7.947Zm5-3.5A3.5 3.5 0 0 0 4.5 5v2.947c0 .346-.102.683-.294.97l-1.703 2.556a.017.017 0 0 0-.003.01l.001.006c0 .002.002.004.004.006l.006.004.007.001h10.964l.007-.001.006-.004.004-.006.001-.007a.017.017 0 0 0-.003-.01l-1.703-2.554a1.745 1.745 0 0 1-.294-.97V5A3.5 3.5 0 0 0 8 1.5Z"></path>
+		</svg>
+		<svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true">
+			<path d="M7.75 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 0 1 0 1.5H8.5v4.25a.75.75 0 0 1-1.5 0V8.5H2.75a.75.75 0 0 1 0-1.5H7V2.75A.75.75 0 0 1 7.75 2Z"></path>
+		</svg>
+		<img src="https://avatars.githubusercontent.com/u/89778503?s=40&v=4" alt="@ninadepina GitHub avatar" />
+	</section>
 </header>
 
 <style>
-	nav {
-		position: sticky;
-		top: 5vh;
-		width: 100%;
-		padding: 0 7vw;
+	header {
 		display: flex;
 		justify-content: space-between;
-		z-index: 999;
-	}
-	nav a {
-		color: #fff;
-		font-family: 'Poppins', sans-serif;
-		font-size: 12px;
-		text-transform: uppercase;
+		align-items: center;
+		padding: 16px 2.3em;
+		font-size: 14px;
+		line-height: 1.5;
+		color: rgba(255, 255, 255, 0.7);
+		background-color: #161b22;
 	}
 
-	.container_social_dropdown {
-		position: relative;
+	header > section {
+		display: flex;
+		align-items: center;
+		gap: 1.4em;
 	}
 
 	ul {
-		margin: 0;
-		padding: 0;
-		list-style-type: none;
+		display: flex;
+		gap: 1em;
 	}
 
-	@media only screen and (min-width: 768px) {
-		nav {
-			top: 6.5vh;
-			padding: 0 5vw;
-			color: #383838;
-			pointer-events: none;
-		}
-		nav a {
-			position: relative;
-			color: inherit;
-			text-decoration: none;
-			pointer-events: all;
-		}
-		nav a::after {
-			content: '';
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			width: 100%;
-			height: 1px;
-			display: block;
-			background-color: #4e4e4e;
-			transition: 0.8s;
-			transition-timing-function: cubic-bezier(0, 0.89, 0.41, 1);
-			transform: scale(0);
-		}
-		nav a:hover::after,
-		.container_social_dropdown:has(.social_dropdown:hover) > a::after {
-			transform: scale(1);
-		}
-		.container_social_dropdown:hover {
-			color: #383838;
-		}
-		.container_social_dropdown:hover .social_dropdown {
-			visibility: visible;
-			opacity: 1;
-			transform: translate(0);
-			pointer-events: all;
-		}
-		.container_social_dropdown:hover .social_dropdown li {
-			opacity: 1;
-			transform: translate(0);
-			transition-delay: calc(var(--order) * 100ms);
-		}
-		.container_social_dropdown > a {
-			position: relative;
-			z-index: 4;
-		}
-		.social_dropdown {
-			visibility: hidden;
-			position: absolute;
-			top: -20px;
-			left: -74%;
-			width: 12vw;
-			opacity: 0;
-			background-color: #fff;
-			border-radius: 25px;
-			transition: 0.4s;
-			transition-timing-function: cubic-bezier(0, 0.89, 0.41, 1);
-			transform: translateY(-10px);
-			transform-origin: top;
-		}
-		.social_dropdown::after {
-			content: url('/chevron_down.svg');
-			position: absolute;
-			top: 20px;
-			right: 28px;
-			width: 20px;
-			z-index: 4;
-		}
-		.social_dropdown ul {
-			position: relative;
-			padding: 58px 0 8px;
-		}
-		.social_dropdown ul::before {
-			content: '';
-			position: absolute;
-			top: 54px;
-			right: 10%;
-			width: 80%;
-			height: 1px;
-			display: block;
-			background-color: rgba(65, 65, 65, 0.3);
-			transform: scale(0);
-			transition: 0.4s;
-		}
-		.social_dropdown li {
-			position: relative;
-			margin: 5px;
-			padding: 10px 31px;
-			opacity: 0;
-			border-radius: 50px;
-			transform: translateY(20%);
-			transition: 0.8s;
-			transition-timing-function: cubic-bezier(0, 0.89, 0.41, 1);
-			cursor: pointer;
-		}
-		.social_dropdown ul li:nth-of-type(1) {
-			--order: 1;
-		}
-		.social_dropdown ul li:nth-of-type(2) {
-			--order: 2;
-		}
-		.social_dropdown ul li:nth-of-type(3) {
-			--order: 3;
-		}
-		.social_dropdown li a {
-			position: relative;
-			color: #383838;
-			text-decoration: none !important;
-			border-radius: 50px;
-			z-index: 1;
-		}
+	li {
+		list-style: none;
+	}
+
+	a {
+		font-weight: 600;
+		white-space: nowrap;
+		color: #f0f6fc;
+		text-decoration: none;
+	}
+	a:is(:hover, :active, :focus-within) {
+		color: rgba(255, 255, 255, 0.7);
+	}
+
+	section:first-of-type svg {
+		width: 32px;
+		height: 32px;
+	}
+	section:last-of-type svg {
+		width: 16px;
+		height: 16px;
+	}
+	path {
+		fill: #f0f6fc;
+	}
+
+	img {
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
 	}
 </style>
