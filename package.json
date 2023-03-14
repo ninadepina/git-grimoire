@@ -8,6 +8,7 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
+		"@rollup/plugin-replace": "^5.0.2",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.5.0",
 		"svelte": "^3.54.0",
@@ -15,6 +16,10 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@sveltejs/adapter-static": "^2.0.1"
+		"@octokit/rest": "^19.0.7",
+		"@sveltejs/adapter-static": "^2.0.1",
+		"date-fns": "^2.29.3",
+		"graphql-request": "^5.2.0",
+		"node-fetch": "^3.3.1"
 	}
 }
