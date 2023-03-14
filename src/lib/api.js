@@ -8,6 +8,7 @@ export async function getRepositories() {
 		data = await (await fetch(url)).json();
 		const repositories = data.map((repository) => {
 			const lastUpdated = formatDistanceToNow(new Date(repository.updated_at), { addSuffix: true });
+			const lastUpdatedTime = repository.updated_at;
 
 			return {
 				name: repository.name,
@@ -15,10 +16,13 @@ export async function getRepositories() {
 				language: repository.language,
 				topics: repository.topics,
 				license: repository.license ? repository.license.name : null,
-				lastUpdated
+				lastUpdated,
+				lastUpdatedTime
 			};
 		});
 		const repositoriesData = await Promise.all(repositories);
+		// sort repos descending by last updated
+		repositoriesData.sort((a, b) => new Date(b.lastUpdatedTime) - new Date(a.lastUpdatedTime));
 		return repositoriesData;
 	} catch (error) {
 		console.error(error);
