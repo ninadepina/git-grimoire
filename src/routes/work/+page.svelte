@@ -1,9 +1,20 @@
 <script>
-    import { onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import { getRepositories, getUserInfo } from '../../lib/api.js';
 
 	let repositories = [];
 	let user = [];
+	let inputValue = '';
+
+	function handleInput(e) {
+		inputValue = e.target.value;
+	}
+
+	async function handleSubmit(e) {
+		e.preventDefault();
+		repositories = await getRepositories(inputValue);
+		user = await getUserInfo(inputValue);
+	}
 
 	onMount(async () => {
 		try {
@@ -72,6 +83,10 @@
             </div>
 		</section>
 		<section>
+			<form autocomplete="off" on:submit={handleSubmit}>
+				<input type="text" bind:value={inputValue} on:input={handleInput} placeholder="Enter someones GitHub username here to view their repositories..." name="search" autocomplete="off" />
+				<button type="submit">Search</button>
+            </form>
 			<ul>
 				{#each repositories as repository}
 					<li>
@@ -234,6 +249,38 @@
 		font-size: 12px;
 		line-height: 20px;
 		color: #8b949e;
+	}
+
+	form {
+		display: flex;
+		gap: 4px;
+		padding-bottom: 16px;
+		box-shadow: inset 0 -1px 0 #21262d;
+	}
+	input {
+		width: 100%;
+		padding: 5px 12px;
+		font-size: 14px;
+		line-height: 20px;
+		color: #c9d1d9;
+		background-color: #0d1117;
+		border: 1px solid #30363d;
+		border-radius: 6px;
+	}
+	input:focus-visible {
+		border-color: #58a6ff;
+		box-shadow: inset 0 0 0 1px #58a6ff;
+	}
+	form button {
+		padding: 5px 16px;
+		font-size: 14px;
+		font-weight: 500;
+		line-height: 20px;
+		color: #fff;
+		background-color: #238636;
+		border: 1px solid rgba(240, 246, 252, 0.1);
+		border-radius: 6px;
+		cursor: pointer;
 	}
 
 	/* repo name */

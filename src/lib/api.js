@@ -1,7 +1,8 @@
 import { formatDistanceToNow } from 'date-fns';
 
-const getRepositories = async () => {
-	const url = 'https://api.github.com/users/ninadepina/repos';
+const getRepositories = async (user) => {
+	if (!user) user = 'ninadepina';
+	const url = `https://api.github.com/users/${user}/repos`;
 	let data;
 
 	try {
@@ -29,8 +30,9 @@ const getRepositories = async () => {
 	}
 };
 
-const getUserInfo = async () => {
-	const url = 'https://api.github.com/users/ninadepina';
+const getUserInfo = async (user) => {
+	if (!user) user = 'ninadepina';
+	const url = `https://api.github.com/users/${user}`;
 	let data;
 
 	try {
