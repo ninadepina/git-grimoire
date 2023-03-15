@@ -94,4 +94,19 @@ const getRepoInfoContents = async (repoName) => {
 	}
 };
 
-export { getRepositories, getUserInfo, getRepoInfo, getRepoInfoContents };
+const getFileContents = async () => {
+	const user = sessionStorage.inputValue || 'ninadepina';
+	const url = `https://api.github.com/repos/${user}/rijksmuseum-unveiled/contents/rijksmuseum/vercel.json`;
+	let data;
+	let file;
+
+	try {
+		data = await (await fetch(url)).json();
+		file = atob(data.content);
+		return file;
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export { getRepositories, getUserInfo, getRepoInfo, getRepoInfoContents, getFileContents };
