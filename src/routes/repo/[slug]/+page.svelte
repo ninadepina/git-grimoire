@@ -1,16 +1,18 @@
 <script>
 	import { onMount } from 'svelte';
-	import { getRepoInfo, getRepoInfoContents } from '../../../lib/api.js';
+	import { getUserInfo, getRepoInfo, getRepoInfoContents } from '../../../lib/api.js';
 
 	const url = window.location.pathname;
 	const repoName = url.substring(url.indexOf('repo/') + 5);
 	let contents = [];
 	let repoInfo = [];
+	let user = [];
 
 	onMount(async () => {
 		try {
 			contents = await getRepoInfoContents(repoName);
 			repoInfo = await getRepoInfo(repoName);
+			user = await getUserInfo();
 		} catch (error) {
 			console.error(error);
 		}
@@ -163,10 +165,10 @@
 						<th>
 							<div>
 								<img
-									src="https://avatars.githubusercontent.com/u/89778503?s=40&v=4"
-									alt="@ninadepina GitHub avatar"
+									src="{user.avatar}"
+									alt="@{user.username} GitHub avatar"
 								/>
-								<h3>ninadepina</h3>
+								<h3>{user.username}</h3>
 								<p>[added] fix</p>
 							</div>
 							<div>

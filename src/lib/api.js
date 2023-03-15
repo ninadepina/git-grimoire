@@ -31,6 +31,7 @@ const getRepositories = async (user) => {
 };
 
 const getUserInfo = async (user) => {
+	if (sessionStorage.inputValue) user = sessionStorage.inputValue;
 	if (!user) user = 'ninadepina';
 	const url = `https://api.github.com/users/${user}`;
 	let data;
@@ -51,7 +52,8 @@ const getUserInfo = async (user) => {
 };
 
 const getRepoInfo = async (repoName) => {
-	const url = `https://api.github.com/repos/ninadepina/${repoName}`;
+	const user = sessionStorage.inputValue || 'ninadepina';
+	const url = `https://api.github.com/repos/${user}/${repoName}`;
 	let data;
 
 	try {
@@ -74,7 +76,8 @@ const getRepoInfo = async (repoName) => {
 };
 
 const getRepoInfoContents = async (repoName) => {
-	const url = `https://api.github.com/repos/ninadepina/${repoName}/contents`;
+	const user = sessionStorage.inputValue || 'ninadepina';
+	const url = `https://api.github.com/repos/${user}/${repoName}/contents`;
 	let data;
 
 	try {

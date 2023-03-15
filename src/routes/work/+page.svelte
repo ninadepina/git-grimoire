@@ -12,15 +12,18 @@
 
 	async function handleSubmit(e) {
 		e.preventDefault();
+		sessionStorage.setItem('inputValue', inputValue);
 		try {
 			repositories = await getRepositories(inputValue);
 			user = await getUserInfo(inputValue);
 		} catch (error) {
+			sessionStorage.removeItem('inputValue');
 			console.error(error);
 		}
 	}
 
 	onMount(async () => {
+		if (sessionStorage.inputValue) sessionStorage.removeItem('inputValue');
 		try {
 			repositories = await getRepositories();
 			user = await getUserInfo();
