@@ -1,6 +1,6 @@
 import { formatDistanceToNow } from 'date-fns';
 
-export async function getRepositories() {
+const getRepositories = async () => {
 	const url = 'https://api.github.com/users/ninadepina/repos';
 	let data;
 
@@ -27,9 +27,9 @@ export async function getRepositories() {
 	} catch (error) {
 		console.error(error);
 	}
-}
+};
 
-export async function getUserInfo() {
+const getUserInfo = async () => {
 	const url = 'https://api.github.com/users/ninadepina';
 	let data;
 
@@ -46,4 +46,47 @@ export async function getUserInfo() {
 	} catch (error) {
 		console.error(error);
 	}
-}
+};
+
+const getRepoInfo = async (repoName) => {
+	const url = `https://api.github.com/repos/ninadepina/${repoName}`;
+	let data;
+
+	try {
+		data = await (await fetch(url)).json();
+		const { name, owner, stargazers_count, watchers_count, forks, topics } = data;
+		const lastUpdated = formatDistanceToNow(new Date(data.pushed_at), { addSuffix: true });
+
+		return {
+			name,
+			user: owner.login,
+			lastUpdated,
+			stars: stargazers_count,
+			watchers: watchers_count,
+			forks,
+			topics
+		};
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+const getRepoInfoContents = async (repoName) => {
+	const url = `https://api.github.com/repos/ninadepina/${repoName}/contents`;
+	let data;
+
+	try {
+		data = await (await fetch(url)).json();
+		const contents = data.map((content) => {
+			return {
+				name: content.name,
+				type: content.type
+			};
+		});
+		return contents;
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export { getRepositories, getUserInfo, getRepoInfo, getRepoInfoContents };
