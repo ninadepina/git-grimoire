@@ -118,7 +118,7 @@
 	header ul {
 		display: flex;
 		gap: 0.8em;
-		margin-left: 410px;
+		margin-left: 420px;
 		min-height: 48px;
 	}
 	header li {
@@ -138,7 +138,7 @@
 	.main_info {
 		display: grid;
 		grid-template-columns: 1fr 3fr;
-		gap: 1.3em;
+		gap: 2.2em;
 		margin: 24px 72.5px;
 	}
 	.main_info section:first-of-type {
