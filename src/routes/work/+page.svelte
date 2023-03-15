@@ -12,8 +12,12 @@
 
 	async function handleSubmit(e) {
 		e.preventDefault();
-		repositories = await getRepositories(inputValue);
-		user = await getUserInfo(inputValue);
+		try {
+			repositories = await getRepositories(inputValue);
+			user = await getUserInfo(inputValue);
+		} catch (error) {
+			console.error(error);
+		}
 	}
 
 	onMount(async () => {
