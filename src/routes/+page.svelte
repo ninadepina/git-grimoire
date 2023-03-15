@@ -58,5 +58,7 @@
 	img {
 		width: 100%;
 		max-width: 1000px;
+		border-radius: 6px 6px 0 0;
+		box-shadow: rgba(255, 255, 255, 0.2) 0px -4px 50px -30px;
 	}
 </style>
