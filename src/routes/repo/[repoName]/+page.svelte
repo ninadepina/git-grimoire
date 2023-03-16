@@ -1,18 +1,20 @@
 <script>
 	import { onMount } from 'svelte';
-	import { getUserInfo, getRepoInfo, getRepoInfoContents } from '../../../lib/api.js';
+	import { getUserInfo, getRepoInfo, getRepoInfoContents, getCommitMessages } from '../../../lib/api.js';
 
 	const url = window.location.pathname;
 	const repoName = url.substring(url.indexOf('repo/') + 5);
 	let contents = [];
 	let repoInfo = [];
 	let user = [];
+	let commitMessages = [];
 
 	onMount(async () => {
 		try {
 			contents = await getRepoInfoContents(repoName);
 			repoInfo = await getRepoInfo(repoName);
 			user = await getUserInfo();
+			commitMessages = await getCommitMessages();
 		} catch (error) {
 			console.error(error);
 		}
@@ -176,7 +178,7 @@
 							</div>
 						</th>
 					</tr>
-					{#each contents as content}
+					{#each contents as content, i}
 						<tr>
 							<td>
 								<!-- prettier-ignore -->
@@ -193,7 +195,7 @@
 									{/if}
 									<a href="/repo/{repoInfo.name}/{content.name}">{content.name}</a>
 								</div>
-								<p>static commit msg</p>
+								<p>{commitMessages[i % commitMessages.length]}</p>
 								<p>static time</p>
 							</td>
 						</tr>

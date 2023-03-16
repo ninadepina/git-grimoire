@@ -109,4 +109,17 @@ const getFileContents = async () => {
 	}
 };
 
-export { getRepositories, getUserInfo, getRepoInfo, getRepoInfoContents, getFileContents };
+const getCommitMessages = async () => {
+	const url = 'https://api.github.com/repos/ninadepina/rijksmuseum-unveiled/commits';
+	let data;
+
+	try {
+		data = await (await fetch(url)).json();
+		const commitMessages = data.map((commit) => commit.commit.message);
+		return commitMessages;
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export { getRepositories, getUserInfo, getRepoInfo, getRepoInfoContents, getFileContents, getCommitMessages };
