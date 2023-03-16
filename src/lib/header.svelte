@@ -1,3 +1,7 @@
+<script>
+	import { page } from '$app/stores';
+</script>
+
 <!-- prettier-ignore -->
 <header>
 	<section>
@@ -6,10 +10,10 @@
 		</svg>
 		<nav>
 			<ul>
-				<li><a href="/">Home</a></li>
-				<li><a href="/work">Work</a></li>
-				<li><a href="/">Socials</a></li>
-				<li><a href="/">Contact</a></li>
+				<li><a href="/" class:active="{$page.url.pathname.endsWith('/')}">Home</a></li>
+				<li><a href="/repo" class:active="{$page.url.pathname.includes('/repo')}">Repositories</a></li>
+				<li><a href="/" class:active="{$page.url.pathname.includes('/socials')}">Socials</a></li>
+				<li><a href="/" class:active="{$page.url.pathname.includes('/contact')}">Contact</a></li>
 			</ul>
 		</nav>
 	</section>
@@ -25,6 +29,10 @@
 </header>
 
 <style>
+	a.active::after {
+		width: 100%;
+		background-color: #fff;
+	}
 	header {
 		display: flex;
 		justify-content: space-between;
@@ -48,17 +56,31 @@
 	}
 
 	li {
+		display: flex;
 		list-style: none;
 	}
 
 	a {
+		display: inline-block;
+		line-height: 1.4em;
 		font-weight: 600;
 		white-space: nowrap;
 		color: #f0f6fc;
 		text-decoration: none;
 	}
+	a::after {
+		content: '';
+		display: block;
+		width: 0;
+		height: 4%;
+		background-color: rgba(255, 255, 255, 0.7);
+		transition: width 0.3s;
+	}
 	a:is(:hover, :active, :focus-within) {
 		color: rgba(255, 255, 255, 0.7);
+	}
+	a:is(:hover, :active, :focus-within)::after {
+		width: 100%;
 	}
 
 	section:first-of-type svg {
