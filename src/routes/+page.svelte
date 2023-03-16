@@ -1,7 +1,7 @@
 <main>
 	<div>
 		<h1>GitHub repository <span>with all</span> my GitHub repositories</h1>
-		<a href="/work">Go to my repositories</a>
+		<a href="/repo">Go to my repositories</a>
 	</div>
 	<img src="/hero_img.png" alt="part of this projects GitHub repository" />
 </main>
