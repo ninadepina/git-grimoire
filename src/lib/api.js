@@ -109,8 +109,9 @@ const getFileContents = async () => {
 	}
 };
 
-const getCommitMessages = async () => {
-	const url = 'https://api.github.com/repos/ninadepina/rijksmuseum-unveiled/commits';
+const getCommitMessages = async (repoName) => {
+	const user = sessionStorage.inputValue || 'ninadepina';
+	const url = `https://api.github.com/repos/${user}/${repoName}/commits`;
 	let data;
 
 	try {
