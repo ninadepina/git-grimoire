@@ -259,6 +259,7 @@
 		border-radius: 6px;
 	}
 	table {
+		table-layout: fixed;
 		width: 100%;
 		font-size: 14px;
 		line-height: 1.5;
@@ -272,11 +273,12 @@
 		height: 24px;
 		border-radius: 50%;
 	}
+
 	th,
 	td {
 		display: flex;
 		align-items: center;
-		max-width: 1214px;
+		max-width: 100%;
 		overflow-x: auto;
 	}
 	th {
