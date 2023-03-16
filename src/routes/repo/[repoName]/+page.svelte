@@ -295,11 +295,11 @@
                     <a href="https://github.com/{user.username}/{repoInfo.name}" target="_blank">{user.username}/{repoInfo.name}</a>
                 </div>
 				{#if repoInfo.topics}
-					<ul>
-						{#each repoInfo.topics as topic}
+					{#each repoInfo.topics as topic}
+						<ul class="topic">
 							<li><a href="https://github.com/topics/{topic}" target="_blank">{topic}</a></li>
-						{/each}
-					</ul>
+						</ul>
+					{/each}
 				{/if}
                 <ul>
                     <li>
@@ -662,7 +662,7 @@
 		text-decoration: underline;
 	}
 	/* topic tags */
-	.main_info > section:last-of-type article:first-of-type > ul:first-of-type li {
+	.main_info > section:last-of-type article:first-of-type > .topic li {
 		display: inline-block;
 		padding: 0 10px;
 		font-size: 12px;
@@ -671,10 +671,10 @@
 		background-color: rgba(56, 139, 253, 0.15);
 		border-radius: 2em;
 	}
-	.main_info > section:last-of-type article:first-of-type > ul:first-of-type li:is(:hover, :active, :focus-within) {
+	.main_info > section:last-of-type article:first-of-type > .topic li:is(:hover, :active, :focus-within) {
 		background-color: #1f6feb;
 	}
-	.main_info > section:last-of-type article:first-of-type > ul:first-of-type li:is(:hover, :active, :focus-within) a {
+	.main_info > section:last-of-type article:first-of-type > .topic li:is(:hover, :active, :focus-within) a {
 		color: #fff;
 	}
 	/* stats */
