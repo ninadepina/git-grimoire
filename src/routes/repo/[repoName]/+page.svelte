@@ -1,12 +1,15 @@
 <script>
 	import { onMount } from 'svelte';
-	import { getUserInfo, getRepoInfo, getRepoInfoContents, getCommitMessages } from '../../../lib/api.js';
-
+	import Chart from 'chart.js/auto';
+	// prettier-ignore
+	import { getUserInfo, getRepoInfo, getRepoInfoContents, getCommitMessages, getLanguages } from '../../../lib/api.js';
+	let chartCanvas;
 	let repoName;
 	let contents = [];
 	let repoInfo = [];
 	let user = [];
 	let commitMessages = [];
+	let languages = [];
 
 	onMount(async () => {
 		try {
@@ -23,6 +26,65 @@
 			repoInfo = await getRepoInfo(repoName);
 			user = await getUserInfo();
 			commitMessages = await getCommitMessages(repoName);
+			languages = await getLanguages(repoName);
+
+			const data = {
+				labels: [''],
+				datasets: [
+					{
+						label: languages[0].language + ' ' + languages[0].percentage + '%',
+						backgroundColor: 'rgba(255, 99, 132, 0.2)',
+						borderColor: 'rgba(255, 99, 132, 1)',
+						borderWidth: 1,
+						data: [languages[0].percentage]
+					},
+					{
+						label: languages[1].language + ' ' + languages[1].percentage + '%',
+						backgroundColor: 'rgba(54, 162, 235, 0.2)',
+						borderColor: 'rgba(54, 162, 235, 1)',
+						borderWidth: 1,
+						data: [languages[1].percentage]
+					},
+					{
+						label: languages[2].language + ' ' + languages[2].percentage + '%',
+						backgroundColor: 'rgba(255, 206, 86, 0.2)',
+						borderColor: 'rgba(255, 206, 86, 1)',
+						borderWidth: 1,
+						data: [languages[2].percentage]
+					}
+				]
+			};
+
+			const options = {
+				scales: {
+					x: {
+						display: false,
+						stacked: true
+					},
+					y: {
+						stacked: true,
+						min: 0,
+						max: 100,
+						ticks: {
+							callback: function (value) {
+								return value + '%';
+							}
+						}
+					}
+				},
+				plugins: {
+					legend: {
+						onClick: null
+					}
+				},
+				events: []
+			};
+
+			new Chart(chartCanvas, {
+				type: 'bar',
+				data: data,
+				options: options
+			});
 		} catch (error) {
 			console.error(error);
 		}
@@ -278,6 +340,7 @@
 			</article>
 			<article>
 				<h2>Languages</h2>
+				<canvas bind:this={chartCanvas}></canvas>
 			</article>
 		</section>
 	</section>
