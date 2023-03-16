@@ -1,9 +1,10 @@
 <script>
 	import { onMount } from 'svelte';
-	import { getRepositories, getUserInfo } from '../../lib/api.js';
+	import { getRepositories, getUserInfo, getLanguageColors } from '../../lib/api.js';
 
 	let repositories = [];
 	let user = [];
+	let languageColors = [];
 	let inputValue = '';
 
 	function handleInput(e) {
@@ -16,6 +17,7 @@
 		try {
 			repositories = await getRepositories(inputValue);
 			user = await getUserInfo(inputValue);
+			languageColors = await getLanguageColors();
 		} catch (error) {
 			sessionStorage.removeItem('inputValue');
 			console.error(error);
@@ -27,6 +29,7 @@
 		try {
 			repositories = await getRepositories();
 			user = await getUserInfo();
+			languageColors = await getLanguageColors();
 		} catch (error) {
 			console.error(error);
 		}
@@ -115,9 +118,12 @@
 							</ul>
 						{/if}
                         <div>
-                            {#if repository.language}
-							    <p>{repository.language}</p>
-						    {/if}
+							<div>
+								{#if repository.language  && languageColors[repository.language]}
+									<span style="background-color: {languageColors[repository.language].color}"></span>
+							   		<p>{repository.language}</p>
+						    	{/if}
+							</div>
 						    {#if repository.license}
 							    <p>{repository.license}</p>
 						    {/if}
@@ -333,5 +339,20 @@
 	}
 	li ul li:is(:hover, :active, :focus-within) a {
 		color: #fff;
+	}
+
+	form + ul div:has(span) {
+		display: flex;
+		align-items: center;
+		gap: 0.4em;
+	}
+	form + ul span {
+		width: 14px;
+		height: 14px;
+		/* background-color: red; */
+		border-radius: 50%;
+	}
+	form + ul div:has(span) p {
+		padding-top: 3px;
 	}
 </style>

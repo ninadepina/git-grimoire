@@ -160,5 +160,17 @@ const getLanguages = async (repoName) => {
 	}
 };
 
+const getLanguageColors = async () => {
+	const url = 'https://raw.githubusercontent.com/ozh/github-colors/master/colors.json';
+	let data;
+
+	try {
+		data = await (await fetch(url)).json();
+		return data;
+	} catch (error) {
+		console.error(error);
+	}
+};
+
 // prettier-ignore
-export { getRepositories, getUserInfo, getRepoInfo, getRepoInfoContents, getFileContents, getCommitMessages, getLanguages };
+export { getRepositories, getUserInfo, getRepoInfo, getRepoInfoContents, getFileContents, getCommitMessages, getLanguages, getLanguageColors };
