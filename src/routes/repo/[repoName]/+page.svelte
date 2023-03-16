@@ -18,7 +18,7 @@
 				repoName = url.substring(url.indexOf('repo/') + 5);
 				sessionStorage.setItem('repoName', repoName);
 			}
-			
+
 			contents = await getRepoInfoContents(repoName);
 			repoInfo = await getRepoInfo(repoName);
 			user = await getUserInfo();
