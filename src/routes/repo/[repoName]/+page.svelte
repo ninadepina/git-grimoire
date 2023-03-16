@@ -2,8 +2,7 @@
 	import { onMount } from 'svelte';
 	import { getUserInfo, getRepoInfo, getRepoInfoContents, getCommitMessages } from '../../../lib/api.js';
 
-	const url = window.location.pathname;
-	const repoName = url.substring(url.indexOf('repo/') + 5);
+	let repoName;
 	let contents = [];
 	let repoInfo = [];
 	let user = [];
@@ -11,10 +10,14 @@
 
 	onMount(async () => {
 		try {
+			const storedRepoName = sessionStorage.getItem('repoName');
+			if (storedRepoName) {
+				repoName = storedRepoName;
+			}
 			contents = await getRepoInfoContents(repoName);
 			repoInfo = await getRepoInfo(repoName);
 			user = await getUserInfo();
-			commitMessages = await getCommitMessages();
+			commitMessages = await getCommitMessages(repoName);
 		} catch (error) {
 			console.error(error);
 		}

@@ -36,6 +36,12 @@
 	function follow() {
 		isFollow = !isFollow;
 	}
+
+	function getRepoName(e) {
+		const repoName = e.target.getAttribute('href').substring('/repo/'.length);
+		sessionStorage.setItem('repoName', repoName);
+		window.location.href = e.target.href;
+	}
 </script>
 
 <main>
@@ -97,7 +103,7 @@
 			<ul>
 				{#each repositories as repository}
 					<li>
-						<h2><a href="/repo/{repository.name}">{repository.name}</a></h2>
+						<h2><a href="/repo/{repository.name}" on:click={getRepoName}>{repository.name}</a></h2>
 						{#if repository.description}
 							<p>{repository.description}</p>
 						{/if}
