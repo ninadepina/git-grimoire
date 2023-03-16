@@ -19,7 +19,6 @@
 		"@octokit/rest": "^19.0.7",
 		"@sveltejs/adapter-static": "^2.0.1",
 		"date-fns": "^2.29.3",
-		"graphql-request": "^5.2.0",
 		"node-fetch": "^3.3.1"
 	}
 }
