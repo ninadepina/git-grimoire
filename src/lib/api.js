@@ -94,9 +94,11 @@ const getRepoInfoContents = async (repoName) => {
 	}
 };
 
-const getFileContents = async () => {
+const getFileContents = async (repoName, fileName) => {
+	fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
+
 	const user = sessionStorage.inputValue || 'ninadepina';
-	const url = `https://api.github.com/repos/${user}/rijksmuseum-unveiled/contents/rijksmuseum/vercel.json`;
+	const url = `https://api.github.com/repos/${user}/${repoName}/contents/${fileName}`;
 	let data;
 	let file;
 

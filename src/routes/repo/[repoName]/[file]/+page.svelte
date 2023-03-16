@@ -6,16 +6,29 @@
 	let fileContents = [];
 	let commitMessages = [];
 	let repoName;
+	let fileName;
 	let commitMessage;
 
 	onMount(async () => {
 		try {
+			const url = window.location.pathname.split('/');
 			const storedRepoName = sessionStorage.getItem('repoName');
+			const storedFileName = sessionStorage.getItem('fileName');
 			if (storedRepoName) {
 				repoName = storedRepoName;
+			} else {
+				repoName = url[2];
+				sessionStorage.setItem('repoName', repoName);
 			}
+			if (storedFileName) {
+				fileName = storedFileName;
+			} else {
+				fileName = url.slice(3).join('/');
+				sessionStorage.setItem('fileName', fileName);
+			}
+
 			user = await getUserInfo();
-			fileContents = await getFileContents();
+			fileContents = await getFileContents(repoName, fileName);
 			commitMessages = await getCommitMessages(repoName);
 			commitMessage = commitMessages[Math.floor(Math.random() * commitMessages.length)];
 		} catch (error) {
@@ -134,10 +147,7 @@
 			<tr>
 				<th>
 					<div>
-						<img
-							src="{user.avatar}"
-							alt="@{user.username} GitHub avatar"
-						/>
+						<img src={user.avatar} alt="@{user.username} GitHub avatar" />
 						<h3>{user.username}</h3>
 						<p>{commitMessage}</p>
 					</div>
