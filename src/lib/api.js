@@ -125,4 +125,40 @@ const getCommitMessages = async (repoName) => {
 	}
 };
 
-export { getRepositories, getUserInfo, getRepoInfo, getRepoInfoContents, getFileContents, getCommitMessages };
+const getLanguages = async (repoName) => {
+	const user = sessionStorage.inputValue || 'ninadepina';
+	const url = `https://api.github.com/repos/${user}/${repoName}/languages`;
+	let data;
+
+	try {
+		data = await (await fetch(url)).json();
+
+		const totalBytes = Object.values(data).reduce((acc, val) => acc + val, 0);
+
+		// get the 2 most used languages
+		const topLanguages = Object.entries(data)
+			.sort((a, b) => b[1] - a[1])
+			.slice(0, 2);
+
+		// get total percentage 2 most used languages
+		const topLanguagesTotal = topLanguages.reduce((acc, [_, value]) => acc + value, 0);
+
+		// create 'other' object with remaining percentage
+		const languagePercentages = [
+			...topLanguages.map(([key, value]) => ({
+				language: key,
+				percentage: ((value / totalBytes) * 100).toFixed(2)
+			})),
+			{ language: 'Other', percentage: (((totalBytes - topLanguagesTotal) / totalBytes) * 100).toFixed(2) }
+		];
+
+		console.log(languagePercentages)
+		return languagePercentages;
+	} catch (error) {
+		console.error(error);
+		return [];
+	}
+};
+
+// prettier-ignore
+export { getRepositories, getUserInfo, getRepoInfo, getRepoInfoContents, getFileContents, getCommitMessages, getLanguages };
