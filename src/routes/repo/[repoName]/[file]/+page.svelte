@@ -253,8 +253,8 @@
 		border-bottom: 2px solid #f78166;
 	}
 
-    div:has(table) {
-        margin: 24px 72.5px;
+	div:has(table) {
+		margin: 24px 72.5px;
 		border: 1px solid #30363d;
 		border-radius: 6px;
 	}
@@ -276,6 +276,8 @@
 	td {
 		display: flex;
 		align-items: center;
+		max-width: 1214px;
+		overflow-x: auto;
 	}
 	th {
 		justify-content: space-between;
@@ -307,6 +309,9 @@
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		padding: 8px 16px;
-        color: #c9d1d9;
+		color: #c9d1d9;
+	}
+	td::-webkit-scrollbar {
+		display: none;
 	}
 </style>
