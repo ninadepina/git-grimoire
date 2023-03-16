@@ -1,6 +1,3 @@
-<script>
-</script>
-
 <main>
 	<div>
 		<h1>GitHub repository <span>with all</span> my GitHub repositories</h1>
