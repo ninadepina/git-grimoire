@@ -151,8 +151,6 @@ const getLanguages = async (repoName) => {
 			})),
 			{ language: 'Other', percentage: (((totalBytes - topLanguagesTotal) / totalBytes) * 100).toFixed(2) }
 		];
-
-		console.log(languagePercentages)
 		return languagePercentages;
 	} catch (error) {
 		console.error(error);
