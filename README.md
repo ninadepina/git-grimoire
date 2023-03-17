@@ -48,5 +48,3 @@ To see a live demo of this project, visit [Git Grimoire](https://git-grimoire.ve
 
 ## 📄 License
 This project is licensed under the MIT License - see the `LICENSE` file for more details
-
----
