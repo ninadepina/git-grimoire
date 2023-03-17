@@ -1,38 +1,52 @@
-# create-svelte
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Svelte](https://img.shields.io/badge/svelte-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white)
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+# 👋🏼 'Git Grimoire'
 
-## Creating a project
+---
 
-If you're seeing this, you've probably already done this step. Congrats!
+## 🛠️ Technologies used
+- HTML5
+- CSS3
+- JavaScript
+- Svelte
+- [GitHub API](https://docs.github.com/en/rest?apiVersion=2022-11-28)
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+---
 
-# create a new project in my-app
-npm create svelte@latest my-app
+## 👩🏼‍💻 How to use
+1. Clone this repository
+```
+$ git clone https://github.com/ninadepina/git-grimoire.git
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+2. Navigate to the correct folder
+```
+$ cd git-grimoire
 ```
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
+3. Install the (dev)dependencies
+```
+$ npm install
 ```
 
-You can preview the production build with `npm run preview`.
+4. Start the web app
+```
+$ npm run dev
+```
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+5. Open the web app in your browser
+```
+http://localhost:3000/
+```
+
+---
+
+## 👁️ Demo
+To see a live demo of this project, visit [Git Grimoire](https://git-grimoire.vercel.app/) (preferibly using Google Chrome)
+
+---
+
+## 📄 License
+This project is licensed under the MIT License - see the `LICENSE` file for more details
+
+---
