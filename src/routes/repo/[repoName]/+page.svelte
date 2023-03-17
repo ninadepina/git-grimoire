@@ -298,11 +298,11 @@
                     <a href="https://github.com/{user.username}/{repoInfo.name}" target="_blank">{user.username}/{repoInfo.name}</a>
                 </div>
 				{#if repoInfo.topics}
-					{#each repoInfo.topics as topic}
-						<ul class="topic">
+					<ul class="topic">
+						{#each repoInfo.topics as topic}
 							<li><a href="https://github.com/topics/{topic}" target="_blank">{topic}</a></li>
-						</ul>
-					{/each}
+						{/each} 
+					</ul>
 				{/if}
                 <ul>
                     <li>
@@ -665,6 +665,11 @@
 		text-decoration: underline;
 	}
 	/* topic tags */
+	.main_info > section:last-of-type article:first-of-type > .topic {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2px;
+	}
 	.main_info > section:last-of-type article:first-of-type > .topic li {
 		display: inline-block;
 		padding: 0 10px;
