@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
 	// prettier-ignore
-	import { getUserInfo, getRepoInfo, getRepoInfoContents, getCommitMessages, getLanguages } from '../../../lib/api.js';
+	import { getUserInfo, getRepoInfo, getRepoInfoContents, getCommitMessages, getLanguages, getLanguageColors } from '../../../lib/api.js';
 	let chartCanvas;
 	let repoName;
 	let contents = [];
@@ -10,6 +10,7 @@
 	let user = [];
 	let commitMessages = [];
 	let languages = [];
+	let languageColors = [];
 
 	onMount(async () => {
 		try {
@@ -27,28 +28,29 @@
 			user = await getUserInfo();
 			commitMessages = await getCommitMessages(repoName);
 			languages = await getLanguages(repoName);
+			languageColors = await getLanguageColors();
 
 			const data = {
 				labels: [''],
 				datasets: [
 					{
 						label: languages[0].language + ' ' + languages[0].percentage + '%',
-						backgroundColor: 'rgba(255, 99, 132, 0.2)',
-						borderColor: 'rgba(255, 99, 132, 1)',
+						backgroundColor: `rgba(${parseInt(languageColors[languages[0].language].color.slice(1,3), 16)}, ${parseInt(languageColors[languages[0].language].color.slice(3,5), 16)}, ${parseInt(languageColors[languages[0].language].color.slice(5,7), 16)}, 0.2)`,
+						borderColor: languageColors[languages[0].language].color,
 						borderWidth: 1,
 						data: [languages[0].percentage]
 					},
 					{
 						label: languages[1].language + ' ' + languages[1].percentage + '%',
-						backgroundColor: 'rgba(54, 162, 235, 0.2)',
-						borderColor: 'rgba(54, 162, 235, 1)',
+						backgroundColor: `rgba(${parseInt(languageColors[languages[1].language].color.slice(1,3), 16)}, ${parseInt(languageColors[languages[1].language].color.slice(3,5), 16)}, ${parseInt(languageColors[languages[1].language].color.slice(5,7), 16)}, 0.2)`,
+						borderColor: languageColors[languages[1].language].color,
 						borderWidth: 1,
 						data: [languages[1].percentage]
 					},
 					{
 						label: languages[2].language + ' ' + languages[2].percentage + '%',
-						backgroundColor: 'rgba(255, 206, 86, 0.2)',
-						borderColor: 'rgba(255, 206, 86, 1)',
+						backgroundColor: 'rgba(255, 255, 255, 0.2)',
+						borderColor: 'rgba(255, 255, 255, 1)',
 						borderWidth: 1,
 						data: [languages[2].percentage]
 					}
@@ -103,6 +105,7 @@
 	function getFileName(e) {
 		const fileName = e.target.getAttribute('href').substring('/repo/'.length);
 		sessionStorage.setItem('fileName', fileName);
+		fileName.indexOf('.') !== -1 ? sessionStorage.setItem('type', 'file') : sessionStorage.setItem('type', 'folder');
 		window.location.href = e.target.href;
 	}
 </script>
