@@ -26,6 +26,8 @@ body {
 
 main {
 	padding: 1em 2em;
+	/* viewport - header - footer - margin main */
+	min-height: calc(100vh - 64px - 64px - 48px);
 }
 
 li {
