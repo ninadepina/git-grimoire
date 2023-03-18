@@ -3,6 +3,7 @@
 	import Chart from 'chart.js/auto';
 	// prettier-ignore
 	import { getUserInfo, getRepoInfo, getRepoInfoContents, getCommitMessages, getLanguages, getLanguageColors } from '../../../lib/api.js';
+	
 	let chartCanvas;
 	let repoName;
 	let contents = [];
