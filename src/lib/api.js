@@ -95,17 +95,27 @@ const getRepoInfoContents = async (repoName) => {
 };
 
 const getFileContents = async (repoName, fileName) => {
-	fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
-
+	fileName = fileName.substring(fileName.indexOf('/') + 1);
 	const user = sessionStorage.inputValue || 'ninadepina';
 	const url = `https://api.github.com/repos/${user}/${repoName}/contents/${fileName}`;
 	let data;
-	let file;
+	let files;
 
 	try {
 		data = await (await fetch(url)).json();
-		file = atob(data.content);
-		return file;
+
+		if (Array.isArray(data)) {
+			files = data.map((file) => {
+				return {
+					name: file.name,
+					type: file.type
+				};
+			});
+			return files;
+		} else {
+			files = atob(data.content);
+		}
+		return files;
 	} catch (error) {
 		console.error(error);
 	}

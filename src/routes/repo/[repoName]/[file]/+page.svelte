@@ -45,6 +45,12 @@
 	function watch() {
 		isWatch = !isWatch;
 	}
+
+	function getFileName(e) {
+		fileName = e.target.dataset.value;
+		sessionStorage.setItem('fileName', fileName);
+		window.location.href = e.target.href;
+	}
 </script>
 
 <main>
@@ -156,11 +162,39 @@
 					</div>
 				</th>
 			</tr>
-			<tr>
-				<td>
-					<pre><code>{fileContents}</code></pre>
-				</td>
-			</tr>
+			{#if !Array.isArray(fileContents)}
+				<tr class="file">
+					<td>
+						<pre><code>{fileContents}</code></pre>
+					</td>
+				</tr>
+			{:else}
+				<tr class="dir">
+					<td>
+						<!-- <a on:click={() => {history.back()}}>..</a> -->
+					</td>
+					{#each fileContents as content, i}
+						<td>
+							<!-- prettier-ignore -->
+							<div>
+								{#if content.type === 'dir'}
+									<svg aria-label="Directory" aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true">
+										<path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"></path>
+									</svg>
+								{/if}
+								{#if content.type === 'file'}
+									<svg aria-label="File" aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true">
+										<path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path>
+									</svg>
+								{/if}
+								<a href="/repo/{repoName}/(..)" data-value="{fileName}/{content.name}" on:click={getFileName}>{content.name}</a>
+							</div>
+							<p>{commitMessages[i % commitMessages.length]}</p>
+							<p>static time</p>
+						</td>
+					{/each}
+				</tr>
+			{/if}
 		</table>
 	</div>
 </main>
@@ -329,12 +363,41 @@
 		gap: 8px;
 	}
 	td {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
 		padding: 8px 16px;
-		color: #c9d1d9;
 	}
 	td::-webkit-scrollbar {
 		display: none;
+	}
+	.file td {
+		color: #c9d1d9;
+	}
+	.dir td:not(td:first-of-type) {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+	}
+	.dir td:hover {
+		background-color: #161b22;
+	}
+	.dir td div {
+		display: flex;
+		gap: 16px;
+		color: #c9d1d9;
+	}
+	.dir td a {
+		color: #c9d1d9;
+		text-decoration: none;
+	}
+	.dir td a:hover {
+		color: #58a6ff;
+		text-decoration: underline;
+	}
+	.dir td > p {
+		color: #8b949e;
+	}
+	.dir td > p:first-of-type {
+		margin: 0 auto 0 0;
+	}
+	.dir td > p:last-of-type {
+		margin: 0 0 0 auto;
 	}
 </style>
