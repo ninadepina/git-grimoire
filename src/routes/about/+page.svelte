@@ -308,9 +308,9 @@
 	}
 	.leftColumn div:first-of-type h2 {
 		font-size: 20px;
-		font-weight: 400;
+		font-weight: 600;
 		line-height: 1.5;
-		color: #8b949e;
+		color: #c9d1d9;
 	}
 	.leftColumn ul {
 		border-top: 1px solid #30363d;
