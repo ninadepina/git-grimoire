@@ -7,24 +7,28 @@ const getRepositories = async (user) => {
 
 	try {
 		data = await (await fetch(url)).json();
-		const repositories = data.map((repository) => {
-			const lastUpdated = formatDistanceToNow(new Date(repository.pushed_at), { addSuffix: true });
-			const lastUpdatedTime = repository.pushed_at;
 
-			return {
-				name: repository.name,
-				description: repository.description,
-				language: repository.language,
-				topics: repository.topics,
-				license: repository.license ? repository.license.name : null,
-				lastUpdated,
-				lastUpdatedTime
-			};
-		});
-		const repositoriesData = await Promise.all(repositories);
+		const repositories = await Promise.all(
+			data.map(async (repository) => {
+				const { name, description, language, topics, pushed_at, license } = repository;
+				const lastUpdated = formatDistanceToNow(new Date(pushed_at), { addSuffix: true });
+				const lastUpdatedTime = pushed_at;
+				const licenseName = license?.name || null;
+
+				return {
+					name,
+					description,
+					language,
+					topics,
+					license: licenseName,
+					lastUpdated,
+					lastUpdatedTime
+				};
+			})
+		);
 		// sort repos descending by last updated
-		repositoriesData.sort((a, b) => new Date(b.lastUpdatedTime) - new Date(a.lastUpdatedTime));
-		return repositoriesData;
+		repositories.sort((a, b) => new Date(b.lastUpdatedTime) - new Date(a.lastUpdatedTime));
+		return repositories;
 	} catch (error) {
 		console.error(error);
 	}
@@ -60,10 +64,11 @@ const getRepoInfo = async (repoName) => {
 		data = await (await fetch(url)).json();
 		const { name, owner, stargazers_count, watchers_count, forks, topics } = data;
 		const lastUpdated = formatDistanceToNow(new Date(data.pushed_at), { addSuffix: true });
+		const user = owner?.login;
 
 		return {
 			name,
-			user: owner.login,
+			user,
 			lastUpdated,
 			stars: stargazers_count,
 			watchers: watchers_count,
@@ -82,12 +87,7 @@ const getRepoInfoContents = async (repoName) => {
 
 	try {
 		data = await (await fetch(url)).json();
-		const contents = data.map((content) => {
-			return {
-				name: content.name,
-				type: content.type
-			};
-		});
+		const contents = data.map(({ name, type }) => ({ name, type }));
 		return contents;
 	} catch (error) {
 		console.error(error);
@@ -99,23 +99,18 @@ const getFileContents = async (repoName, fileName) => {
 	const user = sessionStorage.inputValue || 'ninadepina';
 	const url = `https://api.github.com/repos/${user}/${repoName}/contents/${fileName}`;
 	let data;
-	let files;
 
 	try {
 		data = await (await fetch(url)).json();
 
 		if (Array.isArray(data)) {
-			files = data.map((file) => {
-				return {
-					name: file.name,
-					type: file.type
-				};
-			});
-			return files;
+			return data.map((file) => ({
+				name: file.name,
+				type: file.type
+			}));
 		} else {
-			files = atob(data.content);
+			return atob(data.content);
 		}
-		return files;
 	} catch (error) {
 		console.error(error);
 	}

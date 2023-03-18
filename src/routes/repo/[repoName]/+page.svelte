@@ -3,7 +3,7 @@
 	import Chart from 'chart.js/auto';
 	// prettier-ignore
 	import { getUserInfo, getRepoInfo, getRepoInfoContents, getCommitMessages, getLanguages, getLanguageColors } from '../../../lib/api.js';
-	
+
 	let chartCanvas;
 	let repoName;
 	let contents = [];
@@ -12,38 +12,50 @@
 	let commitMessages = [];
 	let languages = [];
 	let languageColors = [];
+	let isFavorite = false;
+	let isWatch = false;
 
 	onMount(async () => {
 		try {
 			const url = window.location.pathname;
 			const storedRepoName = sessionStorage.getItem('repoName');
-			if (storedRepoName) {
-				repoName = storedRepoName;
-			} else {
-				repoName = url.substring(url.indexOf('repo/') + 5);
-				sessionStorage.setItem('repoName', repoName);
-			}
+			repoName = storedRepoName || url.substring(url.indexOf('repo/') + 5);
+			sessionStorage.setItem('repoName', repoName);
 
-			contents = await getRepoInfoContents(repoName);
-			repoInfo = await getRepoInfo(repoName);
-			user = await getUserInfo();
-			commitMessages = await getCommitMessages(repoName);
-			languages = await getLanguages(repoName);
-			languageColors = await getLanguageColors();
+			[contents, repoInfo, user, commitMessages, languages, languageColors] = await Promise.all([
+				getRepoInfoContents(repoName),
+				getRepoInfo(repoName),
+				getUserInfo(),
+				getCommitMessages(repoName),
+				getLanguages(repoName),
+				getLanguageColors()
+			]);
 
 			const data = {
 				labels: [''],
 				datasets: [
 					{
 						label: languages[0].language + ' ' + languages[0].percentage + '%',
-						backgroundColor: `rgba(${parseInt(languageColors[languages[0].language].color.slice(1,3), 16)}, ${parseInt(languageColors[languages[0].language].color.slice(3,5), 16)}, ${parseInt(languageColors[languages[0].language].color.slice(5,7), 16)}, 0.2)`,
+						backgroundColor: `rgba(${parseInt(
+							languageColors[languages[0].language].color.slice(1, 3),
+							16
+						)}, ${parseInt(languageColors[languages[0].language].color.slice(3, 5), 16)}, ${parseInt(
+							languageColors[languages[0].language].color.slice(5, 7),
+							16
+						)}, 0.2)`,
 						borderColor: languageColors[languages[0].language].color,
 						borderWidth: 1,
 						data: [languages[0].percentage]
 					},
 					{
 						label: languages[1].language + ' ' + languages[1].percentage + '%',
-						backgroundColor: `rgba(${parseInt(languageColors[languages[1].language].color.slice(1,3), 16)}, ${parseInt(languageColors[languages[1].language].color.slice(3,5), 16)}, ${parseInt(languageColors[languages[1].language].color.slice(5,7), 16)}, 0.2)`,
+						backgroundColor: `rgba(${parseInt(
+							languageColors[languages[1].language].color.slice(1, 3),
+							16
+						)}, ${parseInt(languageColors[languages[1].language].color.slice(3, 5), 16)}, ${parseInt(
+							languageColors[languages[1].language].color.slice(5, 7),
+							16
+						)}, 0.2)`,
 						borderColor: languageColors[languages[1].language].color,
 						borderWidth: 1,
 						data: [languages[1].percentage]
@@ -85,21 +97,18 @@
 
 			new Chart(chartCanvas, {
 				type: 'bar',
-				data: data,
-				options: options
+				data,
+				options
 			});
 		} catch (error) {
 			console.error(error);
 		}
 	});
 
-	let isFavorite = false;
-	let isWatch = false;
-
 	function getFileName(e) {
 		const fileName = e.target.getAttribute('href').substring('/repo/'.length);
 		sessionStorage.setItem('fileName', fileName);
-		fileName.indexOf('.') !== -1 ? sessionStorage.setItem('type', 'file') : sessionStorage.setItem('type', 'folder');
+		// fileName.indexOf('.') !== -1 ? sessionStorage.setItem('type', 'file') : sessionStorage.setItem('type', 'folder');
 		window.location.href = e.target.href;
 	}
 </script>

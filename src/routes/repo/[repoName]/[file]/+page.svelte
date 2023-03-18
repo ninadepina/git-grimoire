@@ -5,39 +5,30 @@
 	let user = [];
 	let fileContents = [];
 	let commitMessages = [];
-	let repoName;
-	let fileName;
-	let commitMessage;
+	let repoName, fileName, commitMessage;
+	let isFavorite = false;
+	let isWatch = false;
 
 	onMount(async () => {
 		try {
 			const url = window.location.pathname.split('/');
 			const storedRepoName = sessionStorage.getItem('repoName');
+			repoName = storedRepoName || url[2];
+			sessionStorage.setItem('repoName', repoName);
 			const storedFileName = sessionStorage.getItem('fileName');
-			if (storedRepoName) {
-				repoName = storedRepoName;
-			} else {
-				repoName = url[2];
-				sessionStorage.setItem('repoName', repoName);
-			}
-			if (storedFileName) {
-				fileName = storedFileName;
-			} else {
-				fileName = url.slice(3).join('/');
-				sessionStorage.setItem('fileName', fileName);
-			}
+			fileName = storedFileName || url.slice(3).join('/');
+			sessionStorage.setItem('fileName', fileName);
 
-			user = await getUserInfo();
-			fileContents = await getFileContents(repoName, fileName);
-			commitMessages = await getCommitMessages(repoName);
+			[user, fileContents, commitMessages] = await Promise.all([
+				getUserInfo(),
+				getFileContents(repoName, fileName),
+				getCommitMessages(repoName)
+			]);
 			commitMessage = commitMessages[Math.floor(Math.random() * commitMessages.length)];
 		} catch (error) {
 			console.error(error);
 		}
 	});
-
-	let isFavorite = false;
-	let isWatch = false;
 
 	function getFileName(e) {
 		fileName = e.target.dataset.value;
