@@ -145,22 +145,35 @@ const getLanguages = async (repoName) => {
 
 		const totalBytes = Object.values(data).reduce((acc, val) => acc + val, 0);
 
-		// get the 2 most used languages
-		const topLanguages = Object.entries(data)
-			.sort((a, b) => b[1] - a[1])
-			.slice(0, 2);
+		let languagePercentages;
 
-		// get total percentage 2 most used languages
-		const topLanguagesTotal = topLanguages.reduce((acc, [_, value]) => acc + value, 0);
-
-		// create 'other' object with remaining percentage
-		const languagePercentages = [
-			...topLanguages.map(([key, value]) => ({
+		// check amount languages and adjust output accordingly
+		if (Object.keys(data).length === 3) {
+			languagePercentages = Object.entries(data).map(([key, value]) => ({
 				language: key,
 				percentage: ((value / totalBytes) * 100).toFixed(2)
-			})),
-			{ language: 'Other', percentage: (((totalBytes - topLanguagesTotal) / totalBytes) * 100).toFixed(2) }
-		];
+			}));
+		} else if (Object.keys(data).length >= 4) {
+			// get the 2 most used languages
+			const topLanguages = Object.entries(data)
+				.sort((a, b) => b[1] - a[1])
+				.slice(0, 2);
+
+			// get total percentage 2 most used languages
+			const topLanguagesTotal = topLanguages.reduce((acc, [_, value]) => acc + value, 0);
+
+			// create 'other' object with remaining percentage
+			languagePercentages = [
+				...topLanguages.map(([key, value]) => ({
+					language: key,
+					percentage: ((value / totalBytes) * 100).toFixed(2)
+				})),
+				{ language: 'Other', percentage: (((totalBytes - topLanguagesTotal) / totalBytes) * 100).toFixed(2) }
+			];
+		} else {
+			languagePercentages = [];
+		}
+
 		return languagePercentages;
 	} catch (error) {
 		console.error(error);
