@@ -1,71 +1,80 @@
 <main>
-	<article>
-		<div>
+	<section>
+		<article>
 			<div>
-				<h2>LinkedIn</h2>
-				<p>@ninavens</p>
+				<div>
+					<h2>LinkedIn</h2>
+					<p>@ninavens</p>
+				</div>
+				<div>
+					<img
+						src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg"
+						alt="LinkedIn logo"
+					/>
+				</div>
 			</div>
+			<a href="https://www.linkedin.com/in/ninavens/" target="_blank">Open LinkedIn</a>
+		</article>
+		<article>
 			<div>
-				<img src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" alt="LinkedIn logo" />
+				<div>
+					<h2>Instagram</h2>
+					<p>@ninavensstudio</p>
+				</div>
+				<div>
+					<img
+						src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Instagram.svg/512px-Instagram.svg.png"
+						alt="Instagram logo"
+					/>
+				</div>
 			</div>
-		</div>
-		<a href="https://www.linkedin.com/in/ninavens/" target="_blank">Open LinkedIn</a>
-	</article>
-	<article>
-		<div>
+			<a href="https://www.instagram.com/ninavensstudio/" target="_blank">Open Instagram</a>
+		</article>
+		<article>
 			<div>
-				<h2>Instagram</h2>
-				<p>@ninavensstudio</p>
+				<div>
+					<h2>GitHub</h2>
+					<p>@ninadepina</p>
+				</div>
+				<div>
+					<img
+						src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+						alt="GitHub logo"
+					/>
+				</div>
 			</div>
+			<a href="https://github.com/ninadepina" target="_blank">Open GitHub</a>
+		</article>
+		<article>
 			<div>
-				<img
-					src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Instagram.svg/512px-Instagram.svg.png"
-					alt="Instagram logo"
-				/>
+				<div>
+					<h2>E-mail</h2>
+					<p>nina.vens@hva.nl</p>
+				</div>
+				<div>
+					<img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Send-email.svg" alt="E-mail logo" />
+				</div>
 			</div>
-		</div>
-		<a href="https://www.instagram.com/ninavensstudio/" target="_blank">Open Instagram</a>
-	</article>
-	<article>
-		<div>
-			<div>
-				<h2>GitHub</h2>
-				<p>@ninadepina</p>
-			</div>
-			<div>
-				<img
-					src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
-					alt="GitHub logo"
-				/>
-			</div>
-		</div>
-		<a href="https://github.com/ninadepina" target="_blank">Open GitHub</a>
-	</article>
-	<article>
-		<div>
-			<div>
-				<h2>E-mail</h2>
-				<p>nina.vens@hva.nl</p>
-			</div>
-			<div>
-				<img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Send-email.svg" alt="E-mail logo" />
-			</div>
-		</div>
-		<a href="mailto:nina.vens@hva.nl?subject=Contact from GitHub portfolio" target="_blank">Open E-mail</a>
-	</article>
+			<a href="mailto:nina.vens@hva.nl?subject=Contact from GitHub portfolio" target="_blank">Open E-mail</a>
+		</article>
+	</section>
 </main>
 
 <style>
 	main {
-		display: flex;
-		gap: 16px;
 		margin: 24px 72.5px;
+	}
+	section {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 16px;
 	}
 	article {
 		display: flex;
 		flex-direction: column;
+		flex-basis: calc(33.33333% - 16px);
 		width: 100%;
-        height: fit-content;
+		height: fit-content;
 		padding: 16px;
 		border: 1px solid #30363d;
 		border-radius: 6px;
