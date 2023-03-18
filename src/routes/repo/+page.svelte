@@ -87,8 +87,12 @@
 	<!-- prettier-ignore -->
 	<section class="main_info">
 		<section>
-			<img src="{user.avatar}" alt="GitHub avatar logo" />
-            <p>🤙🏼</p>
+			<div>
+				<img src="{user.avatar}" alt="GitHub avatar logo" />
+				<div>
+					<p>🤙🏼</p>
+				</div>
+			</div>
             <h3>{user.username}</h3>
             <button class:follow={isFollow} on:click={follow}>follow</button>
             <div>
@@ -188,24 +192,27 @@
 		flex-direction: column;
 		gap: 0.9em;
 	}
+	.main_info section:first-of-type div:has(img) {
+		position: relative;
+	}
 	.main_info section:first-of-type img {
 		width: 100%;
 		margin-top: -50px;
 		border: 2px solid #30363d;
 		border-radius: 50%;
 	}
-	.main_info section:first-of-type img + p {
+	.main_info section:first-of-type div:has(img) div {
 		position: absolute;
-		top: 11em;
-		right: 0.4em;
-		display: inline-block;
-		width: 36px;
-		height: 36px;
-		text-align: center;
-		line-height: 2.2;
+		top: 66%;
+		right: 2%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 12%;
+		aspect-ratio: 1 / 1;
 		background-color: #0d1117;
 		border: 1px solid #30363d;
-		border-radius: 2em;
+		border-radius: 50%;
 	}
 	.main_info section:first-of-type h3 {
 		font-size: 20px;
