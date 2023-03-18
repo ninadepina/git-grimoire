@@ -12,7 +12,7 @@
 			<ul>
 				<li><a href="/" class:active="{$page.url.pathname.endsWith('/')}">Home</a></li>
 				<li><a href="/repo" class:active="{$page.url.pathname.includes('/repo')}">Repositories</a></li>
-				<li><a href="/" class:active="{$page.url.pathname.includes('/socials')}">Socials</a></li>
+				<li><a href="/about" class:active="{$page.url.pathname.includes('/about')}">About</a></li>
 				<li><a href="/" class:active="{$page.url.pathname.includes('/contact')}">Contact</a></li>
 			</ul>
 		</nav>
