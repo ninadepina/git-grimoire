@@ -4,8 +4,7 @@
 	// prettier-ignore
 	import { getUserInfo, getRepoInfo, getRepoInfoContents, getCommitMessages, getLanguages, getLanguageColors } from '../../../lib/api.js';
 
-	let chartCanvas;
-	let repoName;
+	let chartCanvas, repoName;
 	let contents = [];
 	let repoInfo = [];
 	let user = [];
@@ -108,7 +107,6 @@
 	function getFileName(e) {
 		const fileName = e.target.getAttribute('href').substring('/repo/'.length);
 		sessionStorage.setItem('fileName', fileName);
-		// fileName.indexOf('.') !== -1 ? sessionStorage.setItem('type', 'file') : sessionStorage.setItem('type', 'folder');
 		window.location.href = e.target.href;
 	}
 </script>
